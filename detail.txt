@@ -17,3 +17,16 @@ discount
 bgcolor
 panelcolor
 textcolor
+
+
+//proper .connect(`${config.get("MONGODB_URI")}/pursoria`)
+config ke ander ye kaam kre uske liye 
+$env:NODE_ENV='development'
+
+//$env:NODE_ENV='development' this is for kyuki default name default.json hota pr hmne development.json rkhna h to uske liye ye 
+
+
+to set up env variable => set NODE_ENV=development {[(take reference from owner router or config)]}
+
+$env:NODE_ENV='development' bs iss command se hi set hota h node_env or kise se nhi
+halaki set NODE_ENV=development se v hota but mere pe pta nhi kyu work nhi kr rha
