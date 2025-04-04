@@ -24,11 +24,11 @@ if(process.env.NODE_ENV=="development"){
     });
 }
 
-router.get('/', (req, res) =>  {
-    res.send('owners route is working hahah!');
+router.get('/admin', (req, res) =>  {
+    res.render('createproducts');
 });
 
 
-console.log(process.env.NODE_ENV);
+
 
 module.exports = router;

@@ -30,3 +30,10 @@ to set up env variable => set NODE_ENV=development {[(take reference from owner 
 
 $env:NODE_ENV='development' bs iss command se hi set hota h node_env or kise se nhi
 halaki set NODE_ENV=development se v hota but mere pe pta nhi kyu work nhi kr rha
+
+/ signup or login
+/ shop-> shop
+/users/cart —> cart
+/admin —> admin panel
+/owner/products show all products
+/owner/admin —> show admin panel to create productsl
