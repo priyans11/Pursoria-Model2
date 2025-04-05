@@ -25,7 +25,8 @@ if(process.env.NODE_ENV=="development"){
 }
 
 router.get('/admin', (req, res) =>  {
-    res.render('createproducts');
+ let success= req.flash("success")
+    res.render('createproducts',{ success }); // This route renders the create products page and success message
 });
 
 
