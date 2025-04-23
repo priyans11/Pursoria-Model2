@@ -38,7 +38,7 @@ module.exports.registerUser =  async (req, res) => {
         // res.send(user);
     }
     catch (err) {
-        console.log(err.message);
+        
         return res.status(500).send("Internall Server Error")
     }
 

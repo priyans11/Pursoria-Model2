@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+
+<div class="min-h-screen flex items-center justify-center px-4">
+    <div class="text-center">
+        <div class="text-6xl font-bold text-gray-300 mb-4">500</div>
+        <h1 class="text-2xl font-bold mb-4">Server Error</h1>
+        <p class="text-gray-600 mb-8">Something went wrong on our end. Please try again later.</p>
+        <a href="/" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+            Return Home
+        </a>
+        <% if (error && Object.keys(error).length > 0) { %>
+            <div class="mt-8 p-4 bg-gray-100 rounded-md text-left overflow-auto max-h-64">
+                <pre class="text-xs text-gray-700"><%= JSON.stringify(error, null, 2) %></pre>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

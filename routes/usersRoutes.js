@@ -4,7 +4,6 @@ const {registerUser,loginUser,logout} = require('../controllers/authController')
 
 router.get("/", function (req, res) {
     res.send('Users route is working!');
-    console.log("users log route is working")
 });
 
 

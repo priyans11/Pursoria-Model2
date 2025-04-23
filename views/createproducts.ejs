@@ -1,55 +1,225 @@
 <%- include('./partials/header') %>
 
-    <% if(success.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-400">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= success %>
-            </span>
-        </div>
-        <% } %>
+<% if(success.length>0){ %>
+    <div class="fixed top-5 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 flash-message transition-opacity duration-300">
+        <span class="flex items-center">
+            <i class="ri-check-line mr-2"></i> <%= success %>
+        </span>
+    </div>
+<% } %>
 
-            <div class="min-h-screen flex flex-col">
-                <div class="container px-10 py-20 flex flex-grow">
-                    <div class="w-[25%] flex h-screen flex-col items-start">
-                        <div class="flex flex-col">
-                            <a class="block w-fit mb-2" href="">All Products</a>
-                            <a class="block w-fit mb-2" href="">Create new product</a>
+<div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row gap-8">
+        <!-- Admin Sidebar -->
+        <div class="w-full md:w-1/4 lg:w-1/5">
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden sticky top-24">
+                <div class="bg-blue-700 text-white p-4">
+                    <h2 class="font-bold text-lg">Admin Dashboard</h2>
+                    <p class="text-blue-100 text-sm">Manage your store</p>
+                </div>
+                
+                <nav class="p-4">
+                    <div class="space-y-1">
+                        <a class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-colors" 
+                           href="/owners/admin/products">
+                            <i class="ri-shopping-bag-line mr-3 text-lg"></i> 
+                            <span>Products</span>
+                        </a>
+                        
+                        <a class="flex items-center px-3 py-2 bg-blue-50 text-blue-700 rounded-md" 
+                           href="/owners/admin">
+                            <i class="ri-add-circle-line mr-3 text-lg"></i> 
+                            <span>Add Product</span>
+                        </a>
+                        
+                        <a class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-colors" 
+                           href="/owners/admin/orders">
+                            <i class="ri-file-list-line mr-3 text-lg"></i> 
+                            <span>Orders</span>
+                        </a>
+                        
+                        <a class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-colors" 
+                           href="/owners/admin/customers">
+                            <i class="ri-user-line mr-3 text-lg"></i> 
+                            <span>Customers</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-8 pt-4 border-t border-gray-200">
+                        <a class="flex items-center px-3 py-2 text-red-600 hover:bg-red-50 rounded-md transition-colors" 
+                           href="/owners/logout">
+                            <i class="ri-logout-box-line mr-3 text-lg"></i> 
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="w-full md:w-3/4 lg:w-4/5">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="border-b border-gray-200 pb-4 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">Create New Product</h2>
+                    <p class="text-gray-600 mt-1">Add a new product to your store inventory</p>
+                </div>
+                
+                <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data" class="space-y-8">
+                    <!-- Product Image Section -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Product Image</h3>
+                        
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                                <i class="ri-image-add-line text-4xl text-gray-400"></i>
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="product-image" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                        <span>Upload a file</span>
+                                        <input id="product-image" name="image" type="file" class="sr-only" accept="image/*" required>
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Image preview will be inserted here by JavaScript -->
+                        <div id="image-preview-container" class="hidden mt-4">
+                            <div class="relative w-full rounded-md overflow-hidden" style="height: 200px;">
+                                <div class="absolute inset-0 bg-opacity-50" id="preview-background"></div>
+                                <img id="image-preview" class="w-full h-full object-contain relative z-10" src="" alt="Product preview">
+                                <button type="button" onclick="removeImage()" class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full z-20">
+                                    <i class="ri-close-line"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <main class="w-3/4 bg-white p-8 shadow ml-4">
-                        <h2 class="text-xl font-bold mb-4">Create New Product</h2>
-                        <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
-                            <div class="mb-6">
-                                <h3 class="text-lg font-semibold mb-2">Product Details</h3>
-                                <div class="mb-4">
-                                    <label class="block mb-2 font-medium">Product Image</label>
-                                    <input name="image" type="file" class="py-2 px-4 rounded" value="Select File">
-                                </div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <input name="name" type="text" placeholder="Product Name"
-                                        class="border p-2 rounded w-full">
-                                    <input name="price" type="text" placeholder="Product Price"
-                                        class="border p-2 rounded w-full">
-                                    <input name="discount" type="text" placeholder="Discount Price"
-                                        class="border p-2 rounded w-full">
-                                </div>
-                            </div>
-
+                    
+                    <!-- Product Details Section -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Product Details</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <input name="bgcolor" type="text" placeholder="Background Color"
-                                        class="border p-2 rounded w-full">
-                                    <input name="panelcolor" type="text" placeholder="Panel Color"
-                                        class="border p-2 rounded w-full">
-                                    <input name="textcolor" type="text" placeholder="Text Color"
-                                        class="border p-2 rounded w-full">
-                                </div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+                                <input type="text" id="name" name="name" required
+                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="e.g., Elegant Tote Bag">
                             </div>
-                            <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white" type="submit"
-                                value="Create New Product">
-                        </form>
-                    </main>
-                </div>
+                            
+                            <div>
+                                <label for="price" class="block text-sm font-medium text-gray-700">Price (₹)</label>
+                                <input type="number" id="price" name="price" required min="0" step="any"
+                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="e.g., 1999">
+                            </div>
+                            
+                            <div>
+                                <label for="discount" class="block text-sm font-medium text-gray-700">Discount (₹)</label>
+                                <input type="number" id="discount" name="discount" min="0" step="any"
+                                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="e.g., 200">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Design Colors Section -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Design Colors</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label for="bgcolor" class="block text-sm font-medium text-gray-700">Background Color</label>
+                                <div class="mt-1 flex rounded-md shadow-sm">
+                                    <input type="text" id="bgcolor" name="bgcolor"
+                                        class="flex-1 block w-full border border-gray-300 rounded-l-md py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="#f8fafc" value="#f8fafc">
+                                    <input type="color" id="bgcolor-picker" value="#f8fafc"
+                                        class="w-10 border border-gray-300 rounded-r-md p-0 border-l-0"
+                                        oninput="document.getElementById('bgcolor').value = this.value">
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Background color for product display</p>
+                            </div>
+                            
+                            <div>
+                                <label for="panelcolor" class="block text-sm font-medium text-gray-700">Panel Color</label>
+                                <div class="mt-1 flex rounded-md shadow-sm">
+                                    <input type="text" id="panelcolor" name="panelcolor"
+                                        class="flex-1 block w-full border border-gray-300 rounded-l-md py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="#ffffff" value="#ffffff">
+                                    <input type="color" id="panelcolor-picker" value="#ffffff"
+                                        class="w-10 border border-gray-300 rounded-r-md p-0 border-l-0"
+                                        oninput="document.getElementById('panelcolor').value = this.value">
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Color for product information panel</p>
+                            </div>
+                            
+                            <div>
+                                <label for="textcolor" class="block text-sm font-medium text-gray-700">Text Color</label>
+                                <div class="mt-1 flex rounded-md shadow-sm">
+                                    <input type="text" id="textcolor" name="textcolor"
+                                        class="flex-1 block w-full border border-gray-300 rounded-l-md py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="#000000" value="#000000">
+                                    <input type="color" id="textcolor-picker" value="#000000"
+                                        class="w-10 border border-gray-300 rounded-r-md p-0 border-l-0"
+                                        oninput="document.getElementById('textcolor').value = this.value">
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Color for product text</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <div class="pt-5 border-t border-gray-200">
+                        <div class="flex justify-end space-x-3">
+                            <button type="button" onclick="window.location.href='/owners/admin/products'"
+                                class="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Create Product
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <%- include('./partials/footer') %>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Image preview functionality
+    document.getElementById('product-image').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('image-preview').src = e.target.result;
+                document.getElementById('image-preview-container').classList.remove('hidden');
+                // Update preview background color when bgcolor changes
+                updatePreviewBackground();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    // Update preview background when bgcolor changes
+    document.getElementById('bgcolor').addEventListener('input', updatePreviewBackground);
+    document.getElementById('bgcolor-picker').addEventListener('input', updatePreviewBackground);
+    
+    function updatePreviewBackground() {
+        const bgColor = document.getElementById('bgcolor').value;
+        const previewBg = document.getElementById('preview-background');
+        if (previewBg) {
+            previewBg.style.backgroundColor = bgColor;
+        }
+    }
+    
+    function removeImage() {
+        document.getElementById('product-image').value = '';
+        document.getElementById('image-preview-container').classList.add('hidden');
+    }
+</script>
+
+<%- include('./partials/footer') %>

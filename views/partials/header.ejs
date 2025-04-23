@@ -4,22 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pursoria - Premium Bags & Accessories</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#1e40af',
+                        accent: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="font-['helvetica_now_display']">
-    <nav class="w-full flex justify-between px-5 py-3">
-        <h3 class="text-xl">Pursoria</h3>
-        <% var loggedin = typeof loggedin !=="undefined" ? loggedin : true%>
-        <%if(loggedin){%>
-            <div class=" flex gap-5">
-                <a href="/shop">Shop</a>
-                <a href="/cart">Cart</a>
-                <a href="/account">My Account</a>
-                <a class="text-red-300" href="/users/logout">Logout</a>
+<body class="font-['Inter'] bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex-shrink-0 flex items-center">
+                        <h3 class="text-2xl font-bold text-primary">Pursoria</h3>
+                    </a>
+                </div>
                 
+                <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
+                <% if(loggedin) { %>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-6">
+                    <a href="/shop" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary transition-colors">Shop</a>
+                    <a href="/cart" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary transition-colors">
+                        <i class="ri-shopping-bag-line mr-1"></i> Cart
+                    </a>
+                    <a href="/account" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary transition-colors">
+                        <i class="ri-user-line mr-1"></i> Account
+                    </a>
+                    <a href="/users/logout" class="ml-2 px-4 py-2 rounded-md text-sm font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
+                        <i class="ri-logout-box-line mr-1"></i> Logout
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                        <i class="ri-menu-line text-xl"></i>
+                    </button>
+                </div>
+                <% } %>
             </div>
-            <%}%>
+        </div>
+
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1 border-t">
+                <% if(loggedin) { %>
+                    <a href="/shop" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary">Shop</a>
+                    <a href="/cart" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary">
+                        <i class="ri-shopping-bag-line mr-1"></i> Cart
+                    </a>
+                    <a href="/account" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary">
+                        <i class="ri-user-line mr-1"></i> Account
+                    </a>
+                    <a href="/users/logout" class="block pl-3 pr-4 py-2 text-base font-medium text-red-600 hover:bg-red-50">
+                        <i class="ri-logout-box-line mr-1"></i> Logout
+                    </a>
+                <% } %>
+            </div>
+        </div>
     </nav>
+
+    <main class="flex-grow">
+    </main>
+</body>
+
+</html>

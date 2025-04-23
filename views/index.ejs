@@ -6,51 +6,81 @@
     <title>Document</title>
 </head>
 <body>
-    <%- include('./partials/header') %>
+    <%- include('./partials/header', { loggedin: false }) %>
 
-    <% if(error.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
+    <% if(error && error.length > 0){ %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500 flash-message z-10">
             <span class="inline-block mt-1 mb-1 text-white">
                 <%= error %>
             </span>
         </div>
-        <% } %>
-            <div class="w-full h-screen flex px-20">
-                <div class="w-1/2 flex items-center justify-center h-screen">
-                    <div class="w-full px-32">
-                        <h3 class="text-4xl">welcome to <span class="text-blue-400 font-semibold">Scatch</span></h3>
-                        <h4 class="text-2xl mb-5">create your account</h4>
-                        <form autocomplete="off" action="/users/register" method="post">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="text" placeholder="Full Name" name="fullname">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="email" placeholder="Email" name="email">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="password" placeholder="Password" name="password">
-                            <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit"
-                                value="Create My Account">
-                        </form>
+    <% } %>
+
+    <div class="min-h-screen flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 bg-blue-50 flex flex-col items-center justify-center p-6 md:p-16">
+            <div class="w-full max-w-md">
+                <h3 class="text-3xl font-bold mb-2">Welcome to <span class="text-blue-600">Pursoria</span></h3>
+                <p class="text-gray-600 mb-8">Premium bags and accessories for your everyday style.</p>
+                
+                <h4 class="text-xl font-semibold mb-5">Create your account</h4>
+                <form autocomplete="off" action="/users/register" method="post" class="space-y-4">
+                    <div>
+                        <label for="register-fullname" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input id="register-fullname" name="fullname" type="text" required
+                            class="bg-white block w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none">
                     </div>
-                </div>
-                <div class="w-1/2 flex items-center justify-center h-screen">
-                    <div class="w-full px-32">
-                        <h4 class="text-2xl capitalize mb-5">login your account</h4>
-                        <form autocomplete="off" action="/users/login" method="post">
-                            <input
-                                class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="email" placeholder="Email" name="email">
-                            <input
-                                class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="password" placeholder="Password" name="password">
-                            <input class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit"
-                                value="Login">
-                        </form>
+                    
+                    <div>
+                        <label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input id="register-email" name="email" type="email" required
+                            class="bg-white block w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none">
                     </div>
+                    
+                    <div>
+                        <label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input id="register-password" name="password" type="password" required
+                            class="bg-white block w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none">
+                    </div>
+                    
+                    <button type="submit" 
+                        class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                        Create My Account
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="w-full md:w-1/2 flex flex-col items-center justify-center p-6 md:p-16">
+            <div class="w-full max-w-md">
+                <h4 class="text-xl font-semibold mb-5">Login to your account</h4>
+                <form autocomplete="off" action="/users/login" method="post" class="space-y-4">
+                    <div>
+                        <label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input id="login-email" name="email" type="email" required
+                            class="bg-white block w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none">
+                    </div>
+                    
+                    <div>
+                        <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input id="login-password" name="password" type="password" required
+                            class="bg-white block w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none">
+                    </div>
+                    
+                    <button type="submit" 
+                        class="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                        Login
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Are you an admin? <a href="/owners/login" class="text-blue-600 hover:underline">Admin Login</a>
+                    </p>
                 </div>
             </div>
-            <%- include('./partials/footer') %>
+        </div>
+    </div>
+
+    <%- include('./partials/footer') %>
 </body>
 </html>
